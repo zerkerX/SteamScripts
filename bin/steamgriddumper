@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import pdb
 import os.path
 from urllib.request import urlopen
 from urllib.error import HTTPError
@@ -9,7 +10,7 @@ from SteamDB import SteamDB, safefilename
 
 def grabimage(remotepath, localpath):
     if os.path.exists(localpath):
-        print('Skipping {}; file already exists.'.format(localpath))
+        pass
     else:
         with urlopen(remotepath) as stream:
             with open(localpath, 'wb') as outfile:
@@ -38,15 +39,17 @@ def main():
             os.mkdir(args.outpath)
         
         for app in steam.db.values():
-            remotepath = "http://cdn.akamai.steamstatic.com/steam/apps/{}/header.jpg".format(
-                app['appid'])
+            remotepath = f"http://cdn.akamai.steamstatic.com/steam/apps/{app['appid']}/header.jpg"
             localpath = os.path.join(args.outpath, safefilename(app['name']) + '.jpg')
             try:
                 grabimage(remotepath, localpath)
             except HTTPError:
-                print('Unable to download header.jpg for {}'.format(app['name']))
+                # Exclude some weird DLC entries
+                if app['appid'] not in {268081, 849187}:
+                    print(f"Unable to download header.jpg for {app['name']} ({app['appid']})")
     except Exception as problem:
-        print('Unable to download images: {}'.format(problem))
+        print(f'Unable to download images: {problem}')
+        pdb.post_mortem()
 
 if __name__ == '__main__':
     main()

@@ -75,7 +75,8 @@ def main():
                         raise Exception('Unexpected naming convention.')
                     
                 except Exception:
-                    print('Unable to identify {}; skipping file.'.format(screenshot))
+                    pass
+                    #print('Unable to identify {}; skipping file.'.format(screenshot))
                 
 
 if __name__ == '__main__':

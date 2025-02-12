@@ -37,11 +37,11 @@ class SteamDB:
         else:
             url = "http://steamcommunity.com/id/{}/games?tab=all".format(profileid)
         with urlopen(url) as stream:
-            profile = stream.readall().decode('utf-8')
+            profile = stream.read().decode('utf-8')
             
         if 'This profile is private' in profile:
             raise Exception('Cannot parse private profile.')
-        dbtext = profile.partition("var rgGames = ")[2].partition(";")[0]
+        dbtext = profile.partition('data-profile-gameslist="')[2].partition('"></template>')[0]
         rawdb = json.loads(dbtext)
         
         # Debug code. Uncomment (and add early Try statement) to get a saved
