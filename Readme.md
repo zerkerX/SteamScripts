@@ -1,10 +1,9 @@
 # Steam Image Scripts
 
-Somewhat outdated scripts that attempt to download images from Steam using
-your profile information. Unfortunately, Steam profile privacy makes this somewhat
-impractical.
-
-Maybe I can update these later to work with a manually downloaded page?
+Scripts that attempt to download images from Steam using
+your profile information. There is some vestigal code to download them,
+but for security reasons you'll need to downlad your "games" page (all games view)
+by hand and provide that path to the scripts.
 
 Overall dependencies to install these tools:
 

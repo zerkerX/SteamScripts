@@ -24,15 +24,16 @@ def main():
                        default='Steam Text Logos',
                        help='Output path. If not specified, will output to '
                         'a subdirectory called "Steam Text Logos"')
-    parser.add_argument('profileid', 
-                       help='Steam profile ID. If your Steam profile URL is '
+    parser.add_argument('profileid_or_path', 
+                       help='Steam profile ID or file path. If your Steam profile URL is '
                        '"http://steamcommunity.com/profiles/12345/", then the ID would be '
-                       '12345.')
+                       '12345. If this matches a file on the filesystem, it is assumed'
+                       'to be a download of your profile.')
 
     args = parser.parse_args()
     
     try:
-        steam = SteamDB(args.profileid)
+        steam = SteamDB(args.profileid_or_path)
         
         if not os.path.exists(args.outpath):
             os.mkdir(args.outpath)
